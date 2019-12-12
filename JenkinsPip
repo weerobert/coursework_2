@@ -1,0 +1,50 @@
+pipeline {
+    agent any 
+            stages 
+	        {
+                stage('Cloning') 
+	        	{
+                    steps 
+		            {
+                        checkout([$class: 'GitSCM',
+                        branches: [[name: '*/master']],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[url: 'https://github.com/weerobert/coursework_2.git']]])
+                    }
+                }
+                stage('Testing') 
+		        {
+                    environment 
+		            {
+                        scannerHome = tool 'sonarqube-container'
+                    }
+                    steps 
+		            {
+                        withSonarQubeEnv('sonarqube-container')
+			            {
+                            sh "${scannerHome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
+                        }
+                        timeout(time: 10, unit: 'MINUTES')
+			            {
+                            waitForQualityGate abortPipeline: true
+                        }
+                    }
+                }
+                stage('Push to DockerHub') 
+		        {
+                    steps 
+		            {
+                        script 
+		            	{
+                            dockerImage = docker.build('weerobert/coursework2' + ':v1')
+                            docker.withRegistry('', 'weerobert') 
+			                {
+                                dockerImage.push()
+                            }
+                        }
+                    }
+                }
+            }
+}
