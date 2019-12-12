@@ -18,11 +18,11 @@ pipeline {
 		        {
                     environment 
 		            {
-                        scannerHome = tool 'sonarqube-container'
+                        scannerHome = tool 'SonarQube'
                     }
                     steps 
 		            {
-                        withSonarQubeEnv('sonarqube-container')
+                        withSonarQubeEnv('SonarQube')
 			            {
                             sh "${scannerHome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
                         }
