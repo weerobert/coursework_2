@@ -2,7 +2,7 @@
   hosts: localhost
 
   vars:
-    myResourceGroup: ansible
+    myResourceGroup: Devops
     myVM: ansible-node
 
   tasks:

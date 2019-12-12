@@ -3,7 +3,7 @@
   connection: local
 
   vars:
-    myResourceGroup: ansible
+    myResourceGroup: Devops
     myVM: ansible-node
 
   tasks:
