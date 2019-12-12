@@ -38,11 +38,12 @@ pipeline {
 		            {
                         script 
 		            	{
-                            dockerImage = docker.build('weerobert/coursework2' + ':v1')
-                            docker.withRegistry('', 'weerobert') 
-			                {
-                                dockerImage.push()
-                            }
+							def app
+							app = docker.build("weerobert/coursework_2")
+							docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+								app.push("${env.BUILD_NUMBER}")
+								app.push("latest")
+							}
                         }
                     }
                 }
