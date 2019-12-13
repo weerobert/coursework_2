@@ -7,6 +7,7 @@ var host;
 var handleRequest = function(request, response) {
   response.setHeader('Content-Type', 'text/plain');
   response.writeHead(200);
+  response.write("I've Been Updated! ");
   response.write("Hello World! | Running on: ");
   response.write(host);
   response.end(" | v=1\n");
@@ -16,7 +17,7 @@ var handleRequest = function(request, response) {
 var www = http.createServer(handleRequest);
 
 www.listen(8080,function () {
-    startTime = new Date();;
+    startTime = new Date();
     host = process.env.HOSTNAME;
     console.log ("Hello World Started At:",startTime, "| Running On: " ,host, "\n" );
 });
