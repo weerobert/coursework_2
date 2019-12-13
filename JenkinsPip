@@ -47,5 +47,15 @@ pipeline {
                         }
                     }
                 }
+				stage('Kubernetes')
+				{
+					steps
+					{
+						sh '''#!/bin/bash
+							ssh -t azureuser@137.116.173.66 kubectl set image deployments/kubernetes-dep kubernetes-dep=hastey/kubernetes-dep:latest
+						'''
+					
+					}
+				}
             }
 }
