@@ -13,7 +13,7 @@ pipeline {
                         submoduleCfg: [],
                         userRemoteConfigs: [[url: 'https://github.com/weerobert/coursework_2.git']]])
                     }
-                }
+                }	
                 stage('Testing') 
 		        {
                     environment 
@@ -39,7 +39,7 @@ pipeline {
                         script 
 		            	{
 							def app
-							app = docker.build("hastey/coursework_2")
+							app = docker.build("hastey/coursework-2")
 							docker.withRegistry('https://registry.hub.docker.com', 'docker_credentials') {
 								app.push("${env.BUILD_NUMBER}")
 								app.push("latest")
