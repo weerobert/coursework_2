@@ -47,32 +47,5 @@ pipeline {
                         }
                     }
                 }
-				stage('Kubernetes')
-				{
-					steps
-					{
-						script 
-						{
-							sshPublisher 
-							(
-								continueOnError: false, 
-								failOnError: true,
-								publishers: 
-								[
-									sshPublisherDesc
-									(
-										configName: "production_server",
-										verbose: true,
-										transfers: [
-											sshTransfer(
-												execCommand: "kubectl set image deployment/kubernetes-dep coursework-2=docker.io/hastey/coursew	ork-2:${env.BUILD_NUMBER}"
-											)
-										]
-									)
-								]
-							)
-						}
-					}
-				}
             }
-}
+}		
