@@ -51,7 +51,7 @@ pipeline {
 				{
 					steps
 					{
-						sh "ssh azureuser@137.116.173.66 kubectl set image deployments.apps/kubernetes-dep coursework-2=docker.io/hastey/coursework-2:${env.BUILD_NUMBER}"
+						sh "ssh -o StrictHostKeyChecking=no azureuser@137.116.173.66 kubectl set image deployments.apps/kubernetes-dep coursework-2=docker.io/hastey/coursework-2:${env.BUILD_NUMBER}"
 					}
 				}
             }
