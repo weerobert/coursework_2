@@ -51,7 +51,7 @@ pipeline {
 				{
 					steps
 					{
-						bash '''#!/bin/bash
+						sh '''#!/bin/bash
 							kubectl create deployment kubernetes-dep --image=weerobert/coursework-2:latest
 							kubectl expose deployment/kubernetes-dep --type="NodePort" --port 8080 --name node-port-service-dep
 							kubectl scale deployment/kubernetes-dep --replicas=4
