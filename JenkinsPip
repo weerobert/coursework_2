@@ -23,7 +23,7 @@ pipeline {
 					steps 
 					{
 						withSonarQubeEnv('SonarQube') 
-						{
+						{	
 							sh "${scannerHome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
 						}
 						timeout(time: 10, unit: 'MINUTES') 
@@ -47,5 +47,12 @@ pipeline {
                         }
                     }
                 }
+				stage('Kubernetes')
+				{
+					steps
+					{
+						sh 'ssh azureuser@137.116.173.66 kubectl set image deployments.apps/kubernetes-dep coursework-2=docker.io/hastey/coursework-2:${env.BUILD_NUMBER}'
+					}
+				}
             }
 }		
